@@ -1,0 +1,13 @@
+os: windows  # استفاده از سیستم‌عامل ویندوز
+language: shell  # زبان پیش‌فرض برای اجرای اسکریپت‌ها
+before_install:
+  # نصب و تنظیم ngrok
+  - choco install -y ngrok  # نصب ngrok با استفاده از Chocolatey
+  - ngrok authtoken YOUR_NGROK_TOKEN  # جایگزین کردن توکن ngrok شما
+
+script:
+  # نصب محیط گرافیکی و تلگرام
+  - powershell -Command "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))"
+  - choco install -y telegram
+  - choco install -y xrdp
+  - ngrok tcp 3389  # ایجاد تونل RDP
